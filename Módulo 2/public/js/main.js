@@ -43,6 +43,7 @@ function atualizaFrase() {
 
 
 
+
 //Aula 2
 /* Alterar a quantidade de palavras e caracteres */
 var campo = $(".campo-digitacao");
@@ -76,13 +77,13 @@ function inicializaContadores()
 
 function inicializaCronometro()
 {
+    
+    /**
+     * A função ONE é diferente da Funcao ON pois ele escuta apenas 1 vez o evento, enquanto a funcao ON escuta e executa 
+     * várias vezes o evento.
+     */
+    campo.one("input", function(){
         var tempoRestante = $("#tempo-digitacao").text();
-        
-        /**
-         * A função ONE é diferente da Funcao ON pois ele escuta apenas 1 vez o evento, enquanto a funcao ON escuta e executa 
-         * várias vezes o evento.
-         */
-        campo.one("input", function(){
             // funcao do javascrityp que executa uma funcao de x em x tempo
         var cronometroId = setInterval(function(){
             tempoRestante--;
@@ -112,6 +113,11 @@ function finalizaJogo(params) {
         campo.toggleClass("campo-desativado");
         inserePlacar();
 }
+
+  
+  
+
+  
 
 //Aula 4
 /**Adicionar botão para reiniciar o "jogo" 
@@ -145,14 +151,19 @@ function reiniciaJogo() {
 }
 
 
+function atualizaTempoInicial(tempo) {
+  $("#tempo-digitacao").text(tempo);
+   tempoInicial = tempo;
+}
+
 
 //Aula 5
 //comparar se o texto digitado é igual ao esperado
 
 
 function inicializaMarcador() {
-    var frase = $(".frase").text();
     campo.on("input", function () {
+        var frase = $(".frase").text();
         var digitado = campo.val();
         var comparavel = frase.substr(0,digitado.length);
 
@@ -173,3 +184,23 @@ function inicializaMarcador() {
     
 }
 
+
+// Modulo 2 Aula 1
+// escondendo o placar
+
+$("#botao-placar").click(function () {
+    exibePlacar();
+});
+
+function exibePlacar() {
+    // esconde ou mostra o elemento
+    //$(".placar").toggle();
+
+    //mas para adicionar um estilo podemos usar a slideToggle
+    $(".placar").stop().slideToggle(600);
+
+    // a funcao stop para a animacao corrente para não ficar empilhado
+
+    //slideDown, slideUp
+
+}

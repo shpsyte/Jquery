@@ -6,7 +6,15 @@
 
 function removeLinha(event) {
     event.preventDefault();
-    $(this).parent().parent().remove();
+    //$(this).parent().parent().remove();
+
+    //fade animacao para remover de forma suave
+    var $linha = $(this).parent().parent();
+
+    $linha.fadeOut(500, function() {
+        $this.remove();
+    });
+
 }
 
 
@@ -21,16 +29,32 @@ function inserePlacar() {
 
     var linha = novaLinha(usuario, numPalavaras);
     linha.find(".botao-remover").click(removeLinha);
-    corpoTabela.append(linha);
+    //corpoTabela.append(linha);
 
   
     //adiciona ao final
     //corpoTabela.append(linha);
     //adiciona antes
     corpoTabela.prepend(linha);
+    $(".placar").slideDown(500);
+    scrollPlacar();
+
+
+
     
 
 
+}
+
+
+function scrollPlacar() {
+    var offset = $(".placar").offset();
+    var top = offset.top;
+    //funcao para animar, recebe 2 paramtros
+    //A primeira é objeto javascrip com as propriedades que quer animar
+    // left, right, hide, ....
+    $("body").animate({ scrollTop: top + "px" }, 1000);
+    
 }
 
 function novaLinha(usuario, palavras) {
