@@ -1,3 +1,70 @@
+// Modulo 2 Aula 1
+// escondendo o placar
+
+$("#botao-placar").click(function () {
+    exibePlacar();
+});
+
+
+// Modulo e aula 10 
+// syncronicazao
+
+$("#botao-sync").click(sincronicaPlacar);
+
+
+function exibePlacar() {
+    // esconde ou mostra o elemento
+    //$(".placar").toggle();
+
+    //mas para adicionar um estilo podemos usar a slideToggle
+    $(".placar").stop().slideToggle(600);
+
+    // a funcao stop para a animacao corrente para não ficar empilhado
+
+    //slideDown, slideUp
+
+}
+
+
+function sincronicaPlacar() {
+    var placar = [];
+    var linha = $("tbody>tr");
+    linha.each(function () {
+        //nth-chlid(1) pega o primeiro elemento no caso TD
+      var usuario = $(this).find("td:nth-child(1)").text();
+      var palavras =  $(this).find("td:nth-child(2)").text();
+      var obj = {
+          usuario: usuario,
+          pontos: palavras
+      };
+      placar.push(obj);
+    });
+
+    var dados = { 
+            placar: placar
+    };
+
+    // faz um post para a url especifica
+    $.post("http://localhost:3000/placar", dados, function () {
+      console.log("Dados salvo com sucesso");
+    });
+}
+
+
+
+function atualizaPlacar() {
+   
+    $.get("http://localhost:3000/placar", function (data) {
+        $(data).each(function() {
+            
+            var linha = novaLinha(this.usuario, this.pontos);
+            linha.find(".botao-remover").click(removeLinha);
+            //adiciona antes
+            $("tbody").prepend(linha);
+        });
+    });
+}
+ 
 
 //aula 7 
 /**Criando um placar para o nosso jogo e adicionando botao remover*/

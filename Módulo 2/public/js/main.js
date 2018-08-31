@@ -12,7 +12,7 @@ $(function(){
    inicializaContadores();
    inicializaCronometro();
    inicializaMarcador();
-   
+   atualizaPlacar();
     
     // outra maneira de atributir evento usanto atalho do Jquery
     botao.click(reiniciaJogo);
@@ -88,7 +88,7 @@ function inicializaCronometro()
         var cronometroId = setInterval(function(){
             tempoRestante--;
             $("#tempo-digitacao").text(tempoRestante);
-            if (tempoRestante <= 0)
+            if (tempoRestante == 0)
             {
                 //faz o setinterval parar de funcionar
                 clearInterval(cronometroId);
@@ -152,6 +152,7 @@ function reiniciaJogo() {
 
 
 function atualizaTempoInicial(tempo) {
+
   $("#tempo-digitacao").text(tempo);
    tempoInicial = tempo;
 }
@@ -184,23 +185,3 @@ function inicializaMarcador() {
     
 }
 
-
-// Modulo 2 Aula 1
-// escondendo o placar
-
-$("#botao-placar").click(function () {
-    exibePlacar();
-});
-
-function exibePlacar() {
-    // esconde ou mostra o elemento
-    //$(".placar").toggle();
-
-    //mas para adicionar um estilo podemos usar a slideToggle
-    $(".placar").stop().slideToggle(600);
-
-    // a funcao stop para a animacao corrente para não ficar empilhado
-
-    //slideDown, slideUp
-
-}
