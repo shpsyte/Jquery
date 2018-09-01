@@ -47,7 +47,16 @@ function sincronicaPlacar() {
     // faz um post para a url especifica
     $.post("http://localhost:3000/placar", dados, function () {
       console.log("Dados salvo com sucesso");
+      $(".tooltip").tooltipster('open').tooltipster("content","Sucesso ao sincronizar");
+    }).always(function () {
+        setTimeout(() => {
+            $(".tooltip").tooltipster('close');
+        }, 1200);
+    }).fail(function () {
+        $(".tooltip").tooltipster('open').tooltipster("content","Falha ao sincronizar");
     });
+
+   
 }
 
 
@@ -87,7 +96,7 @@ function removeLinha(event) {
 
 function inserePlacar() {
     var corpoTabela = $(".placar").find("tbody");
-    var usuario = "Jose";
+    var usuario = $("#usuarios").val();
     var numPalavaras = $("#contador-palavras").text();
     var numCaracteres = $("#contador-caracteres").text();
 

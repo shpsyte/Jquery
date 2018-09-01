@@ -17,6 +17,15 @@ $(function(){
     // outra maneira de atributir evento usanto atalho do Jquery
     botao.click(reiniciaJogo);
 
+    $('#usuarios').selectize({
+        create: true,
+        sortField: 'text'
+    });
+
+    $('.tooltip').tooltipster({
+        trigger: "custom" //desabilia o comportamenteo padrao
+    });
+
 });
 
 
